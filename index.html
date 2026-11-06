@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive computational model of the RME Babyface Pro audio interface."
+    />
+    <title>RME Babyface Pro — Interactive Model</title>
+    <link rel="stylesheet" href="styles.css?v=3" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="intro">
+        <h1>RME Babyface Pro</h1>
+        <p class="dek">
+          Route an input, choose an output, and set the monitoring level. This teaching model uses
+          simplified controls and simulated meters to show state changes and control flow.
+        </p>
+      </header>
+
+      <section class="interface-card" aria-label="Audio interface simulator">
+        <div class="hardware" id="hardware">
+          <div class="hardware-topline">
+            <div>
+              <span class="brand">RME</span>
+              <span class="model-name">BABYFACE PRO</span>
+            </div>
+            <div class="power-cluster">
+              <span id="powerLabel">OFFLINE</span>
+              <span class="status-light" id="powerLight" aria-hidden="true"></span>
+            </div>
+          </div>
+
+          <div class="display" id="display" aria-live="polite">
+            <div class="meter-block">
+              <div class="meter-labels"><span>L</span><span>R</span></div>
+              <div class="meters">
+                <div class="meter-track"><div class="meter-fill" id="meterLeft"></div></div>
+                <div class="meter-track"><div class="meter-fill" id="meterRight"></div></div>
+              </div>
+            </div>
+            <div class="readout">
+              <span class="readout-label" id="readoutLabel">OUTPUT</span>
+              <strong id="volumeReadout">—</strong>
+              <span class="readout-unit" id="readoutUnit">OFF</span>
+            </div>
+            <div class="signal-path">
+              <span id="inputReadout">IN —</span>
+              <span aria-hidden="true">→</span>
+              <span id="outputReadout">OUT —</span>
+            </div>
+          </div>
+
+          <div class="main-controls">
+            <button class="power-button" id="powerButton" type="button" aria-pressed="false">
+              Power
+            </button>
+
+            <div class="dial-wrap">
+              <div class="dial" id="dial" aria-hidden="true">
+                <div class="dial-indicator"></div>
+              </div>
+              <label for="volumeSlider">Monitor volume</label>
+              <input id="volumeSlider" type="range" min="0" max="100" value="45" />
+            </div>
+
+            <button class="mute-button" id="muteButton" type="button" aria-pressed="false">
+              Mute
+            </button>
+          </div>
+
+          <div class="ports" aria-hidden="true">
+            <span>MIC 1</span><span>MIC 2</span><span>PHONES</span>
+          </div>
+        </div>
+
+        <aside class="control-panel">
+          <div class="panel-heading">
+            <h2>Signal path controls</h2>
+            <span class="state-pill" id="statePill">Power off</span>
+          </div>
+
+          <div class="field-group">
+            <label for="inputSelect">Input channel</label>
+            <select id="inputSelect">
+              <option value="Mic 1">Mic 1</option>
+              <option value="Mic 2">Mic 2</option>
+              <option value="Instrument">Instrument</option>
+            </select>
+          </div>
+
+          <fieldset class="field-group output-group">
+            <legend>Monitor output</legend>
+            <label><input type="radio" name="output" value="Speakers" checked /> Speakers</label>
+            <label><input type="radio" name="output" value="Headphones" /> Headphones</label>
+          </fieldset>
+
+          <div class="logic-card">
+            <p class="logic-title">Current rule</p>
+            <p id="logicMessage">If power is off, no signal reaches the output.</p>
+          </div>
+
+          <div class="event-log-wrap">
+            <div class="event-log-heading">
+              <h3>State changes</h3>
+              <span>latest first</span>
+            </div>
+            <ol class="event-log" id="eventLog" aria-live="polite">
+              <li>Model initialized: power is off.</li>
+            </ol>
+          </div>
+        </aside>
+      </section>
+
+      <section class="model-notes" aria-labelledby="modelNotesTitle">
+        <h2 id="modelNotesTitle">What this model demonstrates</h2>
+        <div class="note-grid">
+          <article><h3>Variables</h3><p>Power, volume, mute, input, and output are stored as changing values.</p></article>
+          <article><h3>Events</h3><p>Buttons, sliders, selects, and radio controls update the model.</p></article>
+          <article><h3>Control flow</h3><p><code>if / else</code> rules decide whether audio is active, muted, or offline.</p></article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
